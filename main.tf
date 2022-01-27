@@ -27,13 +27,13 @@ resource "aws_launch_template" "prefect" {
 
   user_data = base64encode(templatefile("${path.module}/prefect-agent.sh",
     {
-      region                       = data.aws_region.current.name
-      linux_type                   = var.linux_type
-      prefect_api_key              = local.prefect_api_key
-      prefect_api_address          = var.prefect_api_address
-      prefect_labels               = var.prefect_labels
-      image_pulling                = local.image_pulling
-      flow_logs                    = local.flow_logs
+      region              = data.aws_region.current.name
+      linux_type          = var.linux_type
+      prefect_api_key     = local.prefect_api_key
+      prefect_api_address = var.prefect_api_address
+      prefect_labels      = var.prefect_labels
+      image_pulling       = local.image_pulling
+      flow_logs           = local.flow_logs
     }
   ))
 }
@@ -44,7 +44,9 @@ resource "aws_autoscaling_group" "prefect" {
   min_size            = var.min_capacity
   health_check_type   = "EC2"
   desired_capacity    = var.desired_capacity
-  vpc_zone_identifier = var.subnet_ids
+  vpc_zone_identifier = var.deploy_network ? module.vpc[0].private_subnets : var.subnet_ids
+
+
 
   lifecycle {
     create_before_destroy = true
@@ -59,7 +61,7 @@ resource "aws_autoscaling_group" "prefect" {
 resource "aws_security_group" "sg" {
   count  = var.security_group_ids == null ? 1 : 0
   name   = "prefect-agent"
-  vpc_id = var.vpc_id
+  vpc_id = var.deploy_network ? module.vpc[0].vpc_id : var.vpc_id
 
   egress = [
     {
@@ -127,6 +129,16 @@ resource "aws_iam_role_policy" "policy" {
         ]
         Effect   = "Allow"
         Resource = ["arn:aws:ecr:*:${data.aws_caller_identity.current.account_id}:repository/*", "*"]
+      },
+      {
+        Action = [
+          "s3:GetObject",
+          "s3:ListBucket",
+          "s3:ListAllMyBuckets",
+          "s3:PutObject"
+        ]
+        Effect   = "Allow"
+        Resource = "*"
       },
       {
         Action = [

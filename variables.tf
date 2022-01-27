@@ -1,3 +1,4 @@
+## general parameters
 variable "instance_type" {
   type        = string
   description = "AWS instance type"
@@ -6,6 +7,11 @@ variable "instance_type" {
 variable "ami_id" {
   type        = string
   description = "ami to launch the ec2 instance from, windows images not supported"
+}
+variable "security_group_ids" {
+  type        = list(string)
+  description = "security group(s) to attach to the prefect launch template, if not provided, a default one will be created"
+  default     = null
 }
 variable "linux_type" {
   type        = string
@@ -37,8 +43,13 @@ variable "key_name" {
   description = "private pem key to apply to the prefect instances"
   default     = null
 }
+variable "custom_tags" {
+  description = "custom tags which can be passed on to the AWS resources. they should be key value pairs having distinct keys."
+  type        = map(any)
+  default     = {}
+}
 
-## vars for prefect bootstrap script
+## parameters for prefect bootstrap script
 variable "prefect_api_key_secret_name" {
   type        = string
   description = "id of aws secrets manager secret for prefect api key"
@@ -56,8 +67,8 @@ variable "prefect_api_address" {
 }
 variable "prefect_labels" {
   type        = string
-  description = "labels to apply to the prefect agent" # DESCRIBE EXACT TYPE 
-  default     = "[]"
+  description = "labels to apply to the prefect agent" # DESCRIBE EXACT TYPE "['us-east-1']"
+  default     = ""
 }
 variable "disable_image_pulling" {
   type        = string
@@ -65,31 +76,39 @@ variable "disable_image_pulling" {
   default     = false
 }
 variable "enable_local_flow_logs" {
-  type = bool
+  type        = bool
   description = "enables flow logs to output locally on the agent"
-  default = false
+  default     = false
 }
 
-
-
+## parameters for network configuration
+variable "deploy_network" {
+  type        = bool
+  description = "deploy lightweight network to host the prefect agent"
+  default     = true
+}
+variable "vpc_cidr" {
+  type        = string
+  description = "cidr range to apply to your vpc"
+  default     = "192.168.0.0/24"
+}
 variable "vpc_id" {
   type        = string
   description = "id of the vpc to deploy the prefect agent into"
+  default     = ""
 }
 variable "subnet_ids" {
   type        = list(string)
   description = "ids of the subnets to assign to the autoscaling group"
+  default     = []
+}
+variable "enable_single_nat_gateway" {
+  type        = bool
+  description = "enable a shared nat gateway within your vpc"
+  default     = true
 }
 
-
-
-variable "security_group_ids" {
-  type        = list(string)
-  description = "security group(s) to attach to the prefect launch template, if not provided, a default one will be created"
-  default     = null
-}
-
-
+## parameters for iam
 variable "iam_role_id" {
   type        = string
   description = "iam role to attach to the prefect launch template, if not provided, a default one will be created"
@@ -99,9 +118,4 @@ variable "attach_ssm_policy" {
   type        = bool
   description = "Attach ssm policy to the prefect iam role"
   default     = true
-}
-variable "custom_tags" {
-  description = "custom tags which can be passed on to the AWS resources. they should be key value pairs having distinct keys."
-  type        = map(any)
-  default     = {}
 }
