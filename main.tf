@@ -25,7 +25,7 @@ resource "aws_launch_template" "prefect" {
     }, var.custom_tags)
   }
 
-  user_data = base64encode(templatefile("${path.module}/prefect-agent.sh",
+  user_data = base64encode(templatefile("${path.module}/prefect-agent.sh.tpl",
     {
       region              = data.aws_region.current.name
       linux_type          = var.linux_type
@@ -46,8 +46,6 @@ resource "aws_autoscaling_group" "prefect" {
   desired_capacity    = var.desired_capacity
   vpc_zone_identifier = var.deploy_network ? module.vpc[0].private_subnets : var.subnet_ids
 
-
-
   lifecycle {
     create_before_destroy = true
   }
@@ -63,22 +61,21 @@ resource "aws_security_group" "sg" {
   name_prefix = "prefect-agent"
   vpc_id      = var.deploy_network ? module.vpc[0].vpc_id : var.vpc_id
 
-  egress = [
-    {
-      from_port   = "0"
-      to_port     = "0"
-      protocol    = "-1"
-      cidr_blocks = ["0.0.0.0/0"]
-      description = "allow all outbound"
-    }
-  ]
-
   tags = merge({
     Name         = "prefect-agent"
     "managed-by" = "terraform"
   }, var.custom_tags)
 }
 
+resource "aws_security_group_rule" "prefect_egress" {
+  count             = var.security_group_ids == null ? 1 : 0
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = -1
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = var.security_group_ids == null ? aws_security_group.sg[0].id : null
+}
 
 ##########################################
 # IAM Policies

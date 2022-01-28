@@ -65,22 +65,28 @@ resource "aws_security_group" "endpoints" {
   description = "Allow HTTPS traffic to/from vpc endpoints within the vpc"
   vpc_id      = module.vpc[0].vpc_id
 
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "TCP"
-    cidr_blocks = [var.vpc_cidr]
-  }
-
-  egress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "TCP"
-    cidr_blocks = [var.vpc_cidr]
-  }
-
   tags = {
     Name       = "vpc-endpoints"
     managed-by = "terraform"
   }
+}
+
+resource "aws_security_group_rule" "vpce_egress" {
+  count             = var.deploy_network ? 1 : 0
+  type              = "egress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "TCP"
+  cidr_blocks       = [var.vpc_cidr]
+  security_group_id = var.deploy_network ? aws_security_group.endpoints[0].id : null
+}
+
+resource "aws_security_group_rule" "vpce_ingress" {
+  count             = var.deploy_network ? 1 : 0
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "TCP"
+  cidr_blocks       = [var.vpc_cidr]
+  security_group_id = var.deploy_network ? aws_security_group.endpoints[0].id : null
 }
