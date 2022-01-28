@@ -121,7 +121,7 @@ resource "aws_iam_role_policy" "policy" {
           "ecr:Get*"
         ]
         Effect   = "Allow"
-        Resource = ["arn:aws:ecr:*:${data.aws_caller_identity.current.account_id}:repository/*", "*"]
+        Resource = ["arn:aws:ecr:*:${data.aws_caller_identity.current.account_id}:repository/*"]
       },
       {
         Action = [
