@@ -58,7 +58,6 @@ module "vpc_endpoints" {
   }
 }
 
-
 resource "aws_security_group" "endpoints" {
   count       = var.deploy_network ? 1 : 0
   name_prefix = "vpc-endpoints"
