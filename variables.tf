@@ -48,7 +48,6 @@ variable "custom_tags" {
   type        = map(any)
   default     = {}
 }
-
 ## parameters for prefect bootstrap script
 variable "prefect_api_key_secret_name" {
   type        = string
@@ -80,7 +79,6 @@ variable "enable_local_flow_logs" {
   description = "enables flow logs to output locally on the agent"
   default     = false
 }
-
 ## parameters for network configuration
 variable "deploy_network" {
   type        = bool
@@ -107,7 +105,6 @@ variable "enable_single_nat_gateway" {
   description = "enable a shared nat gateway within your vpc"
   default     = true
 }
-
 ## parameters for iam
 variable "iam_role_id" {
   type        = string

@@ -61,7 +61,7 @@ module "vpc_endpoints" {
 
 resource "aws_security_group" "endpoints" {
   count       = var.deploy_network ? 1 : 0
-  name        = "vpc-endpoints"
+  name_prefix = "vpc-endpoints"
   description = "Allow HTTPS traffic to/from vpc endpoints within the vpc"
   vpc_id      = module.vpc[0].vpc_id
 

@@ -1,5 +1,5 @@
 resource "aws_launch_template" "prefect" {
-  name        = "prefect-agent"
+  name_prefix = "prefect-agent"
   description = "launches a prefect agent on a specified image"
 
   image_id      = var.ami_id
@@ -39,7 +39,7 @@ resource "aws_launch_template" "prefect" {
 }
 
 resource "aws_autoscaling_group" "prefect" {
-  name                = "prefect-agent"
+  name_prefix         = "prefect-agent"
   max_size            = var.max_capacity
   min_size            = var.min_capacity
   health_check_type   = "EC2"
@@ -59,21 +59,17 @@ resource "aws_autoscaling_group" "prefect" {
 }
 
 resource "aws_security_group" "sg" {
-  count  = var.security_group_ids == null ? 1 : 0
-  name   = "prefect-agent"
-  vpc_id = var.deploy_network ? module.vpc[0].vpc_id : var.vpc_id
+  count       = var.security_group_ids == null ? 1 : 0
+  name_prefix = "prefect-agent"
+  vpc_id      = var.deploy_network ? module.vpc[0].vpc_id : var.vpc_id
 
   egress = [
     {
-      from_port        = "0"
-      to_port          = "0"
-      protocol         = "-1"
-      cidr_blocks      = ["0.0.0.0/0"]
-      description      = "allow all outbound"
-      security_groups  = null
-      self             = null
-      prefix_list_ids  = null
-      ipv6_cidr_blocks = null
+      from_port   = "0"
+      to_port     = "0"
+      protocol    = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+      description = "allow all outbound"
     }
   ]
 
@@ -88,14 +84,14 @@ resource "aws_security_group" "sg" {
 # IAM Policies
 ##########################################
 resource "aws_iam_instance_profile" "instance_profile" {
-  name = "prefect-agent-${data.aws_region.current.name}"
-  role = var.iam_role_id == null ? aws_iam_role.role[0].name : var.iam_role_id
+  name_prefix = "prefect-agent"
+  role        = var.iam_role_id == null ? aws_iam_role.role[0].name : var.iam_role_id
 }
 
 resource "aws_iam_role" "role" {
-  count = var.iam_role_id == null ? 1 : 0
-  name  = "prefect-agent-${data.aws_region.current.name}"
-  path  = "/"
+  count       = var.iam_role_id == null ? 1 : 0
+  name_prefix = "prefect-agent"
+  path        = "/"
 
   assume_role_policy = <<EOF
 {
@@ -115,9 +111,9 @@ EOF
 }
 
 resource "aws_iam_role_policy" "policy" {
-  count = var.iam_role_id == null ? 1 : 0
-  name  = "prefect-agent-${data.aws_region.current.name}"
-  role  = var.iam_role_id == null ? aws_iam_role.role[0].name : var.iam_role_id
+  count       = var.iam_role_id == null ? 1 : 0
+  name_prefix = "prefect-agent"
+  role        = var.iam_role_id == null ? aws_iam_role.role[0].name : var.iam_role_id
 
   policy = jsonencode({
     Version = "2012-10-17"
