@@ -1,8 +1,8 @@
 module "prefect" {
   source = "../../"
 
-  instance_type = "t3.medium"
-  key_name      = "prefect.pem"
+  instance_type = "t2.medium"
+  key_name      = var.key_name
 
   custom_tags = {
     "environment" : "prod"
@@ -13,8 +13,5 @@ module "prefect" {
   prefect_labels              = "['prod']"
 
   deploy_network = true
-  vpc_cidr       = "192.168.0.0/24"
-
-
-  ami_id = "somethinghere"
+  vpc_cidr       = var.vpc_cidr
 }
