@@ -12,6 +12,11 @@ resource "aws_launch_template" "prefect" {
     name = aws_iam_instance_profile.instance_profile.name
   }
 
+  metadata_options {
+    http_endpoint               = "enabled"
+    http_tokens                 = "required"
+  }
+
   monitoring {
     enabled = var.enable_detailed_monitoring
   }
