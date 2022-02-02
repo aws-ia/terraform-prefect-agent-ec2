@@ -29,7 +29,8 @@ resource "aws_launch_template" "prefect" {
     {
       region              = data.aws_region.current.name
       linux_type          = var.linux_type
-      prefect_api_key     = local.prefect_api_key
+      prefect_secret_name = var.prefect_api_key_secret_name
+      prefect_secret_key  = var.prefect_secret_key
       prefect_api_address = var.prefect_api_address
       prefect_labels      = var.prefect_labels
       image_pulling       = local.image_pulling

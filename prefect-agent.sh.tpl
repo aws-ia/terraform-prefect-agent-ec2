@@ -13,6 +13,9 @@ cd /
 amazon-linux-extras install docker -y
 service docker start
 
+# intall jq
+yum install jq -y
+
 # install aws logs
 yum install awslogs -y
 
@@ -28,6 +31,11 @@ systemctl enable awslogsd.service
 
 # prefect agent install
 pip3 install prefect
+
+# get API key
+result=$(aws secretsmanager get-secret-value --secret-id ${prefect_secret_name} --region ${region})
+secret=$(echo $result | jq -r '.SecretString')
+PREFECT_API_KEY=$(echo $secret | jq -r '.${prefect_secret_key}')
 
 # create prefect config file
 mkdir ~/.prefect
@@ -48,7 +56,7 @@ Type=simple
 Restart=on-failure
 RestartSec=5
 User=root
-ExecStart=/usr/local/bin/prefect agent docker start -k ${prefect_api_key} --api ${prefect_api_address} ${image_pulling} ${flow_logs}
+ExecStart=/usr/local/bin/prefect agent docker start -k $PREFECT_API_KEY --api ${prefect_api_address} ${image_pulling} ${flow_logs}
 [Install]
 WantedBy=multi-user.target " >> /etc/systemd/system/prefect-agent.service
 
