@@ -1,4 +1,7 @@
 <!-- BEGIN_TF_DOCS -->
+# Create Prefect API key in AWS Secrets Manager
+`aws secretsmanager create-secret --name prefect-api-key --secret-string "{\"key\":\"API_KEY_HERE\"}"`
+
 ## Requirements
 
 | Name | Version |
@@ -34,6 +37,7 @@
 | [aws_security_group_rule.prefect_egress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.vpce_egress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.vpce_ingress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_ami.amazon_linux_2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 | [aws_secretsmanager_secret.prefect](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
@@ -42,7 +46,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_ami_id"></a> [ami\_id](#input\_ami\_id) | ami to launch the ec2 instance from, windows images not supported | `string` | n/a | yes |
+| <a name="input_ami_id"></a> [ami\_id](#input\_ami\_id) | ami to launch the ec2 instance from, windows images not supported | `string` | `""` | no |
 | <a name="input_attach_ssm_policy"></a> [attach\_ssm\_policy](#input\_attach\_ssm\_policy) | Attach ssm policy to the prefect iam role | `bool` | `true` | no |
 | <a name="input_custom_tags"></a> [custom\_tags](#input\_custom\_tags) | custom tags which can be passed on to the AWS resources. they should be key value pairs having distinct keys. | `map(any)` | `{}` | no |
 | <a name="input_deploy_network"></a> [deploy\_network](#input\_deploy\_network) | deploy lightweight network to host the prefect agent | `bool` | `true` | no |
