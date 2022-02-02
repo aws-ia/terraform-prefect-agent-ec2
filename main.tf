@@ -2,7 +2,7 @@ resource "aws_launch_template" "prefect" {
   name_prefix = "prefect-agent"
   description = "launches a prefect agent on a specified image"
 
-  image_id      = var.ami_id
+  image_id      = var.ami_id == "" ? data.aws_ami.amazon_linux_2.id : var.ami_id
   instance_type = var.instance_type
   key_name      = var.key_name != null ? var.key_name : null
 
@@ -13,8 +13,8 @@ resource "aws_launch_template" "prefect" {
   }
 
   metadata_options {
-    http_endpoint               = "enabled"
-    http_tokens                 = "required"
+    http_endpoint = "enabled"
+    http_tokens   = "required"
   }
 
   monitoring {

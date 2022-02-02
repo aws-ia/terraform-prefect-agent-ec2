@@ -7,6 +7,7 @@ variable "instance_type" {
 variable "ami_id" {
   type        = string
   description = "ami to launch the ec2 instance from, windows images not supported"
+  default     = ""
 }
 variable "security_group_ids" {
   type        = list(string)
