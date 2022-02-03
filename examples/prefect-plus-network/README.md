@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Prefect plus network
 Configuration in this directory creates the Prefect agent deployed on a single EC2 instance in an autoscaling group. It also creates
 a lightweight network to host the agent.
@@ -34,8 +35,12 @@ No resources.
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_key_name"></a> [key\_name](#input\_key\_name) | private pem key to apply to the prefect instances | `string` | n/a | yes |
+| <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | cidr range to apply to your vpc | `string` | n/a | yes |
 
 ## Outputs
 
 No outputs.
+<!-- END_TF_DOCS -->

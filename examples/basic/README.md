@@ -1,5 +1,6 @@
+<!-- BEGIN_TF_DOCS -->
 # Basic
-Configuration in this directory creates the Prefect agent deployed on a single EC2 instance in an autoscaling group. 
+Configuration in this directory creates the Prefect agent deployed on a single EC2 instance in an autoscaling group.
 
 ## Usage
 To run this example you need to execute:
@@ -38,3 +39,4 @@ No inputs.
 ## Outputs
 
 No outputs.
+<!-- END_TF_DOCS -->

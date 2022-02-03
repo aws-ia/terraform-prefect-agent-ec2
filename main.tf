@@ -75,12 +75,16 @@ resource "aws_security_group" "sg" {
 }
 
 resource "aws_security_group_rule" "prefect_egress" {
-  count             = var.security_group_ids == null ? 1 : 0
-  type              = "egress"
-  from_port         = 0
-  to_port           = 0
-  protocol          = -1
-  cidr_blocks       = ["0.0.0.0/0"]
+  count       = var.security_group_ids == null ? 1 : 0
+  description = "allow all egress traffic to the internet"
+  type        = "egress"
+  from_port   = 0
+  to_port     = 0
+  protocol    = -1
+  cidr_blocks = ["0.0.0.0/0"] #tfsec:ignore:aws-vpc-no-public-egress-sgr
+  # this is neccessary as the IP of Prefect Cloud (or Prefect server) is not static
+  # also, ec2 may need to interact with other resources outside of the vpc
+  # i.e snowflake, on-prem data sources, etc.
   security_group_id = var.security_group_ids == null ? aws_security_group.sg[0].id : null
 }
 

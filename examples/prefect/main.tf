@@ -8,8 +8,8 @@ module "prefect" {
     "environment" : "prod"
   }
 
-  prefect_api_key_secret_name = "prefect-api-key"
-  prefect_secret_key          = "key"
+  prefect_api_key_secret_name = "prefect-api-key" #tfsec:ignore:general-secrets-no-plaintext-exposure
+  prefect_secret_key          = "key"             #tfsec:ignore:general-secrets-no-plaintext-exposure
   prefect_labels              = "['prod']"
 
   deploy_network = false

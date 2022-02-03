@@ -72,6 +72,7 @@ resource "aws_security_group" "endpoints" {
 
 resource "aws_security_group_rule" "vpce_egress" {
   count             = var.deploy_network ? 1 : 0
+  description       = "allow egress https traffic to the local vpc"
   type              = "egress"
   from_port         = 443
   to_port           = 443
@@ -82,6 +83,7 @@ resource "aws_security_group_rule" "vpce_egress" {
 
 resource "aws_security_group_rule" "vpce_ingress" {
   count             = var.deploy_network ? 1 : 0
+  description       = "allow ingress https traffic to the local vpc"
   type              = "ingress"
   from_port         = 443
   to_port           = 443
