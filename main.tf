@@ -65,6 +65,7 @@ resource "aws_autoscaling_group" "prefect" {
 resource "aws_security_group" "sg" {
   count       = var.security_group_ids == null ? 1 : 0
   name_prefix = "prefect-agent"
+  description = "allow all outbound traffic from the prefect agent"
   vpc_id      = var.deploy_network ? module.vpc[0].vpc_id : var.vpc_id
 
   tags = merge({
