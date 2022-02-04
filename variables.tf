@@ -72,6 +72,11 @@ variable "prefect_labels" {
   description = "labels to apply to the prefect agent" # DESCRIBE EXACT TYPE "['us-east-1']"
   default     = ""
 }
+variable "agent_automation_config" {
+  type        = string
+  description = "config id to apply to the prefect agent to enable cloud automations"
+  default     = ""
+}
 variable "disable_image_pulling" {
   type        = string
   description = "disables the prefect agents ability to pull non-local images"

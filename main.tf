@@ -40,6 +40,7 @@ resource "aws_launch_template" "prefect" {
       prefect_labels      = var.prefect_labels
       image_pulling       = local.image_pulling
       flow_logs           = local.flow_logs
+      config_id           = local.config_id
     }
   ))
 }

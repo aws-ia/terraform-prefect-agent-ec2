@@ -46,6 +46,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_agent_automation_config"></a> [agent\_automation\_config](#input\_agent\_automation\_config) | config id to apply to the prefect agent to enable cloud automations | `string` | `""` | no |
 | <a name="input_ami_id"></a> [ami\_id](#input\_ami\_id) | ami to launch the ec2 instance from, windows images not supported | `string` | `""` | no |
 | <a name="input_attach_ssm_policy"></a> [attach\_ssm\_policy](#input\_attach\_ssm\_policy) | Attach ssm policy to the prefect iam role | `bool` | `true` | no |
 | <a name="input_custom_tags"></a> [custom\_tags](#input\_custom\_tags) | custom tags which can be passed on to the AWS resources. they should be key value pairs having distinct keys. | `map(any)` | `{}` | no |
