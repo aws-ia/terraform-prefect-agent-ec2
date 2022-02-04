@@ -1,0 +1,4 @@
+module "prefect" {
+  source = "../../"
+
+}

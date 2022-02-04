@@ -1,5 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
-# Basic
+# Prefect
 Configuration in this directory creates the Prefect agent deployed on a single EC2 instance in an autoscaling group.
 
 ## Usage
@@ -34,7 +34,11 @@ No resources.
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_key_name"></a> [key\_name](#input\_key\_name) | private pem key to apply to the prefect instances | `string` | n/a | yes |
+| <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | ids of the subnets to assign to the autoscaling group | `list(string)` | n/a | yes |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | id of the vpc to deploy the prefect agent into | `string` | n/a | yes |
 
 ## Outputs
 
