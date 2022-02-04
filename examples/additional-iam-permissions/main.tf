@@ -16,7 +16,7 @@ module "prefect" {
   vpc_cidr       = var.vpc_cidr
 }
 
-data "aws_region" "current" {}
+data "aws_caller_identity" "current" {}
 
 resource "aws_iam_role_policy" "additional_policy" {
   name_prefix = "prefect-agent-additional"
