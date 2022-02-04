@@ -6,10 +6,10 @@ import (
 	"github.com/gruntwork-io/terratest/modules/terraform"
 )
 
-func TestExamplesPrefectPlusNetwork(t *testing.T) {
+func TestExamplesBuildYourOwnNetwork(t *testing.T) {
 
 	terraformOptions := &terraform.Options{
-		TerraformDir: "../examples/prefect-plus-network",
+		TerraformDir: "../examples/build-your-own-network",
 
 		Vars: map[string]interface{}{
 			"key_name": "prefect",
