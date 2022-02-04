@@ -53,13 +53,13 @@ variable "custom_tags" {
 variable "prefect_api_key_secret_name" {
   type        = string
   description = "id of aws secrets manager secret for prefect api key"
-  default     = "prefect-api-key" #tfsec:ignore:general-secrets-no-plaintext-exposure
+  default     = "prefect-api-key" #tfsec:ignore:general-secrets-no-plaintext-exposure tfsec:ignore:general-secrets-sensitive-in-variable
   # this is not sensitive, it is the default secret name, used so that userdata can pull secret value
 }
 variable "prefect_secret_key" {
   type        = string
   description = "key of aws secrets manager secret for prefect api key"
-  default     = "key" #tfsec:ignore:general-secrets-no-plaintext-exposure
+  default     = "key" #tfsec:ignore:general-secrets-no-plaintext-exposure tfsec:ignore:general-secrets-sensitive-in-variable
   # this is not sensitive, it is the default key of the secret used so that userdata can pull secret value
 }
 variable "prefect_api_address" {
