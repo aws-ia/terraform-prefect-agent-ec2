@@ -1,9 +1,9 @@
 <!-- BEGIN_TF_DOCS -->
 # Prefect Agent on AWS EC2 Module
 
-The [Prefect Agent](https://docs.prefect.io/orchestration/agents/overview.html) is a lighweight process that orchestrates flow runs.  It is responsible for starting and monitoring flow runs. During operation the agent process queries the Prefect API for any scheduled flow runs, and allocates resources for them on their respective deployment platforms.
+The [Prefect Agent](https://docs.prefect.io/orchestration/agents/overview.html) is a lightweight process that orchestrates [flow runs](https://docs.prefect.io/core/concepts/flows.html).  It is responsible for starting and monitoring flow runs. During operation the agent process queries the Prefect API for any scheduled flow runs, and allocates resources for them on their respective deployment platforms.
 
-This Terraform module contains both an EC2 deployment bootstrapped with the specfied Prefect agent requirements and networking resources. You can deploy only the EC2 resources, or both.
+This Terraform module deploys the infrastructure required to run the Prefect agent on AWS EC2. Optionally, and by default, it deploys AWS VPC Networking resources which are best practice for Prefect configuration. You can disable the default networking we deploy, see example [bring your own network](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/bring-your-own-network).
 
 ## Prerequisites
 
@@ -20,10 +20,10 @@ Error: Secrets Manager Secret "prefect-api-key" not found
 ## Examples
 
 Review the `examples/` directory for several specific deployment patterns:
-* Agent Configuration Options - Demonstrates common agent configuration options that can be passed to the module  
-* Additional IAM Permissions - Uses the IAM role built within the module to add additional permissions to the Prefect Agent EC2 Instance
-* Basic - Simple deployment of the module with **no** inputs provided
-* Bring Your Own Network - Demonstrates using network resources that were built outside of the scope of this module
+* [Agent Configuration Options](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/agent-configuration-options) - Demonstrates common agent configuration options that can be passed to the module  
+* [Additional IAM Permissions](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/additional-iam-permissions) - Uses the IAM role built within the module to add additional permissions to the Prefect Agent EC2 Instance
+* [Basic](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/basic) - Simple deployment of the module with **no** inputs provided
+* [Bring Your Own Network](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/bring-your-own-network) - Demonstrates using network resources that were built outside of the scope of this module
 
 ## Requirements
 
