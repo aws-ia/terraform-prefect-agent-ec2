@@ -1,7 +1,7 @@
 <!-- BEGIN_TF_DOCS -->
 # Bring Your Own Network
 
-Configuration in this directory creates the Prefect agent deployed on a single EC2 instance in an autoscaling group.
+Configuration in this directory creates the Prefect Docker agent deployed on a single EC2 instance in an autoscaling group.
 
 ![architecture diagram](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/images/bring-your-own-network.png)
 

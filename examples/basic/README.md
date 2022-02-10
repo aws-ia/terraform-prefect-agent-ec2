@@ -1,7 +1,7 @@
 <!-- BEGIN_TF_DOCS -->
 # Basic
 
-Configuration in this directory creates the Prefect agent deployed on a single EC2 instance in an autoscaling group. It also creates a lightweight network to host the agent.
+Configuration in this directory creates the Prefect Docker agent deployed on a single EC2 instance in an autoscaling group. It also creates a lightweight network to host the agent.
 
 ![architecture diagram](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/images/basic.png)
 

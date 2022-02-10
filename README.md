@@ -1,15 +1,15 @@
 <!-- BEGIN_TF_DOCS -->
-# Prefect Agent on AWS EC2 Module
+# Prefect Docker Agent on AWS EC2 Module
 
-The [Prefect Agent](https://docs.prefect.io/orchestration/agents/overview.html) is a lighweight process that orchestrates [flow runs](https://docs.prefect.io/core/concepts/flows.html).  It is responsible for starting and monitoring flow runs. During operation the agent process queries the Prefect API for any scheduled flow runs, and allocates resources for them on their respective deployment platforms.
+The [Prefect Docker Agent](https://docs.prefect.io/orchestration/agents/overview.html) is a lighweight process that orchestrates [flow runs](https://docs.prefect.io/core/concepts/flows.html).  It is responsible for starting and monitoring flow runs. During operation the agent process queries the Prefect API for any scheduled flow runs, and allocates resources for them on their respective deployment platforms.
 
-This Terraform module deploys the infrastructure required to run the Prefect agent on AWS EC2. Optionally, and by default, it deploys AWS VPC Networking resources which are best practice for Prefect configuration. You can disable the default networking we deploy, see example [bring your own network](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/bring-your-own-network).
+This Terraform module deploys the infrastructure required to run the Prefect Docker agent on AWS EC2. Optionally, and by default, it deploys AWS VPC Networking resources which are best practice for Prefect configuration. You can disable the default networking we deploy, see example [bring your own network](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/bring-your-own-network).
 
 ![architecture diagram](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/images/basic.png)
 
 ## Prerequisites
 
-1. Generate an [API key](https://docs.prefect.io/orchestration/concepts/api_keys.html#using-api-keys) for the Prefect agent
+1. Generate an [API service account key](https://docs.prefect.io/orchestration/concepts/api_keys.html#using-api-keys) for the agent
 2. Store the API key in AWS Secrets Manager in the console, or using the following CLI command.  The secret is created by this Terraform module intentionally, as Terraform would store the API key in plaintext within the state file.
 ```
 aws secretsmanager create-secret --name prefect-api-key --secret-string "{\"key\":\"API_KEY_HERE\"}"
@@ -27,7 +27,7 @@ Review the `examples/` directory for several specific deployment patterns:
 * [Basic](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/basic) - Simple deployment of the module with **no** inputs provided
 * [Bring Your Own Network](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/bring-your-own-network) - Demonstrates using network resources that were built outside of the scope of this module
 
-## Prefect Agent Configuration
+## Agent Configuration
 
 Several agent configuration options are exposed through this module.  Please find more documentation on the following configuration options [here](https://docs.prefect.io/orchestration/agents/overview.html#common-configuration-options).
 * [Prefect API address](https://docs.prefect.io/orchestration/agents/overview.html#prefect-api-address)
