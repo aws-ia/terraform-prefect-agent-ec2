@@ -1,8 +1,10 @@
 <!-- BEGIN_TF_DOCS -->
-# additional iam permissions
-Configuration in this directory creates the Prefect agent deployed on a single EC2 instance in an autoscaling group. It also creates a lightweight network to host the agent.  It also creates an additional IAM policy and attaches it to the existing IAM role for the Prefect agent.
+# Additional IAM Permissions
+
+Configuration in this directory creates the Prefect agent deployed on a single EC2 instance in an autoscaling group as well as a lightweight network to host the agent.  It also creates an additional IAM policy and attaches it to the existing IAM role for the Prefect agent.
 
 ## Usage
+
 To run this example you need to execute:
 ```
 $ terraform init
