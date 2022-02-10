@@ -3,7 +3,7 @@
 
 Configuration in this directory creates the Prefect agent deployed on a single EC2 instance in an autoscaling group. It also creates a lightweight network to host the agent.
 
-[architecture diagram](../../images/basic.png)
+![architecture diagram](../../images/basic.png)
 
 ## Usage
 
