@@ -111,7 +111,7 @@ variable "subnet_ids" {
 variable "enable_single_nat_gateway" {
   type        = bool
   description = "enable a shared nat gateway within your vpc"
-  default     = true
+  default     = false
 }
 ## parameters for iam
 variable "iam_role_id" {
