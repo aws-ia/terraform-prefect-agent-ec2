@@ -1,9 +1,9 @@
 <!-- BEGIN_TF_DOCS -->
 # Prefect Docker Agent on AWS EC2 Module
 
-The [Prefect Docker Agent](https://docs.prefect.io/orchestration/agents/overview.html) is a lighweight process that orchestrates [flow runs](https://docs.prefect.io/core/concepts/flows.html).  It is responsible for starting and monitoring flow runs. During operation the agent process queries the Prefect API for any scheduled flow runs, and allocates resources for them on their respective deployment platforms.
+The [Prefect Agent](https://docs.prefect.io/orchestration/agents/overview.html) is a lightweight process that orchestrates [flow runs](https://docs.prefect.io/core/concepts/flows.html).  It is responsible for starting and monitoring flow runs. During operation the agent process queries the Prefect API for any scheduled flow runs, and allocates resources for them on their respective deployment platforms.
 
-This Terraform module deploys the infrastructure required to run the Prefect Docker agent on AWS EC2. Optionally, and by default, it deploys AWS VPC Networking resources which are best practice for Prefect configuration. You can disable the default networking we deploy, see example [bring your own network](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/bring-your-own-network).
+This Terraform module deploys the infrastructure required to run the Prefect Docker agent on AWS EC2. By default, it deploys AWS VPC Networking resources, which are best practice for Prefect configuration. You can disable the default networking as show in the [bring your own network](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/bring-your-own-network) example.
 
 ![architecture diagram](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/images/basic.png)
 
@@ -14,7 +14,7 @@ This Terraform module deploys the infrastructure required to run the Prefect Doc
 ```
 aws secretsmanager create-secret --name prefect-api-key --secret-string "{\"key\":\"API_KEY_HERE\"}"
 ```
-> Note - if you receive the following error from Terraform, the secret has not been created or the name of the secret provided to Terraform was incorrect
+> Note - if you receive the following error from Terraform, the secret has not been created or the name of the secret provided to Terraform was incorrect.
 ```
 Error: Secrets Manager Secret "prefect-api-key" not found
 ```
