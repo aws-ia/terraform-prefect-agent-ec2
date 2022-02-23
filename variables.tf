@@ -69,7 +69,12 @@ variable "prefect_api_address" {
 }
 variable "prefect_labels" {
   type        = string
-  description = "labels to apply to the prefect agent" # DESCRIBE EXACT TYPE "['us-east-1']"
+  description = "labels to apply to the prefect agent" # Use the following format: "['us-east-1']"
+  default     = ""
+}
+variable "agent_automation_config" {
+  type        = string
+  description = "config id to apply to the prefect agent to enable cloud automations"
   default     = ""
 }
 variable "disable_image_pulling" {
@@ -106,7 +111,7 @@ variable "subnet_ids" {
 variable "enable_single_nat_gateway" {
   type        = bool
   description = "enable a shared nat gateway within your vpc"
-  default     = true
+  default     = false
 }
 ## parameters for iam
 variable "iam_role_id" {

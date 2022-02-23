@@ -1,6 +1,40 @@
 <!-- BEGIN_TF_DOCS -->
-# Create Prefect API key in AWS Secrets Manager
-`aws secretsmanager create-secret --name prefect-api-key --secret-string "{\"key\":\"API_KEY_HERE\"}"`
+# Prefect Docker Agent on AWS EC2 Module
+
+The [Prefect Agent](https://docs.prefect.io/orchestration/agents/overview.html) is a lightweight process that orchestrates [flow runs](https://docs.prefect.io/core/concepts/flows.html).  It is responsible for starting and monitoring flow runs. During operation the agent process queries the Prefect API for any scheduled flow runs, and allocates resources for them on their respective deployment platforms.
+
+This Terraform module deploys the infrastructure required to run the Prefect Docker agent on AWS EC2. By default, it deploys AWS VPC Networking resources, which are best practice for Prefect configuration. You can disable the default networking as show in the [bring your own network](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/bring-your-own-network) example.
+
+![architecture diagram](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/images/basic.png)
+
+## Prerequisites
+
+1. Generate an [API service account key](https://docs.prefect.io/orchestration/concepts/api_keys.html#using-api-keys) for the agent
+2. Store the API key in AWS Secrets Manager in the console, or using the following CLI command.  The secret is created by this Terraform module intentionally, as Terraform would store the API key in plaintext within the state file.
+```
+aws secretsmanager create-secret --name prefect-api-key --secret-string "{\"key\":\"API_KEY_HERE\"}"
+```
+> Note - if you receive the following error from Terraform, the secret has not been created or the name of the secret provided to Terraform was incorrect.
+```
+Error: Secrets Manager Secret "prefect-api-key" not found
+```
+
+## Examples
+
+Review the `examples/` directory for several specific deployment patterns:
+* [Agent Configuration Options](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/agent-configuration-options) - Demonstrates common agent configuration options that can be passed to the module  
+* [Additional IAM Permissions](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/additional-iam-permissions) - Uses the IAM role built within the module to add additional permissions to the Prefect Agent EC2 Instance
+* [Basic](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/basic) - Simple deployment of the module with **no** inputs provided
+* [Bring Your Own Network](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/bring-your-own-network) - Demonstrates using network resources that were built outside of the scope of this module
+
+## Agent Configuration
+
+Several agent configuration options are exposed through this module.  Please find more documentation on the following configuration options [here](https://docs.prefect.io/orchestration/agents/overview.html#common-configuration-options).
+* [Prefect API address](https://docs.prefect.io/orchestration/agents/overview.html#prefect-api-address)
+* [Labels](https://docs.prefect.io/orchestration/agents/overview.html#labels)
+* [Agent Automations](https://docs.prefect.io/orchestration/agents/overview.html#agent-automations)
+* [Streaming Flow Run Logs](https://docs.prefect.io/orchestration/agents/docker.html#streaming-flow-run-logs)
+* [Disabling Image Pulling](https://docs.prefect.io/orchestration/agents/docker.html#disabling-image-pulling)
 
 ## Requirements
 
@@ -46,6 +80,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_agent_automation_config"></a> [agent\_automation\_config](#input\_agent\_automation\_config) | config id to apply to the prefect agent to enable cloud automations | `string` | `""` | no |
 | <a name="input_ami_id"></a> [ami\_id](#input\_ami\_id) | ami to launch the ec2 instance from, windows images not supported | `string` | `""` | no |
 | <a name="input_attach_ssm_policy"></a> [attach\_ssm\_policy](#input\_attach\_ssm\_policy) | Attach ssm policy to the prefect iam role | `bool` | `true` | no |
 | <a name="input_custom_tags"></a> [custom\_tags](#input\_custom\_tags) | custom tags which can be passed on to the AWS resources. they should be key value pairs having distinct keys. | `map(any)` | `{}` | no |
@@ -54,7 +89,7 @@
 | <a name="input_disable_image_pulling"></a> [disable\_image\_pulling](#input\_disable\_image\_pulling) | disables the prefect agents ability to pull non-local images | `string` | `false` | no |
 | <a name="input_enable_detailed_monitoring"></a> [enable\_detailed\_monitoring](#input\_enable\_detailed\_monitoring) | enable detailed monitoring on the prefect agent (1 min intervals) | `bool` | `true` | no |
 | <a name="input_enable_local_flow_logs"></a> [enable\_local\_flow\_logs](#input\_enable\_local\_flow\_logs) | enables flow logs to output locally on the agent | `bool` | `false` | no |
-| <a name="input_enable_single_nat_gateway"></a> [enable\_single\_nat\_gateway](#input\_enable\_single\_nat\_gateway) | enable a shared nat gateway within your vpc | `bool` | `true` | no |
+| <a name="input_enable_single_nat_gateway"></a> [enable\_single\_nat\_gateway](#input\_enable\_single\_nat\_gateway) | enable a shared nat gateway within your vpc | `bool` | `false` | no |
 | <a name="input_iam_role_id"></a> [iam\_role\_id](#input\_iam\_role\_id) | iam role to attach to the prefect launch template, if not provided, a default one will be created | `string` | `null` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | AWS instance type | `string` | `"t3.medium"` | no |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | private pem key to apply to the prefect instances | `string` | `null` | no |

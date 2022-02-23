@@ -1,9 +1,10 @@
 <!-- BEGIN_TF_DOCS -->
-# Prefect plus network
-Configuration in this directory creates the Prefect agent deployed on a single EC2 instance in an autoscaling group. It also creates
-a lightweight network to host the agent.
+# Agent Configuration Options
+
+Configuration in this directory creates the Prefect Docker agent deployed on a single EC2 instance in an autoscaling group as well as a lightweight network to host the agent.  It also provides additional configuration to the agent like [labels](https://docs.prefect.io/orchestration/agents/overview.html#labels) & an [automation id](https://docs.prefect.io/orchestration/concepts/automations.html#overview).
 
 ## Usage
+
 To run this example you need to execute:
 ```
 $ terraform init
@@ -37,8 +38,7 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_key_name"></a> [key\_name](#input\_key\_name) | private pem key to apply to the prefect instances | `string` | n/a | yes |
-| <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | cidr range to apply to your vpc | `string` | n/a | yes |
+| <a name="input_agent_automation_config"></a> [agent\_automation\_config](#input\_agent\_automation\_config) | config id to apply to the prefect agent to enable cloud automations | `string` | n/a | yes |
 
 ## Outputs
 

@@ -6,14 +6,13 @@ import (
 	"github.com/gruntwork-io/terratest/modules/terraform"
 )
 
-func TestExamplesPrefectPlusNetwork(t *testing.T) {
+func TestExamplesAgentConfigurationOptions(t *testing.T) {
 
 	terraformOptions := &terraform.Options{
-		TerraformDir: "../examples/prefect-plus-network",
+		TerraformDir: "../examples/agent-configuration-options",
 
 		Vars: map[string]interface{}{
-			"key_name": "prefect",
-			"vpc_cidr": "10.0.0.0/24",
+			"agent_automation_config": "98dn3ks8-aafg-98s8-j37d-k9sn4uf8sn3k",
 		},
 	}
 

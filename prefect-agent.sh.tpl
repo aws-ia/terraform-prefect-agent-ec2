@@ -56,7 +56,7 @@ Type=simple
 Restart=on-failure
 RestartSec=5
 User=root
-ExecStart=/usr/local/bin/prefect agent docker start -k $PREFECT_API_KEY --api ${prefect_api_address} ${image_pulling} ${flow_logs}
+ExecStart=/usr/local/bin/prefect agent docker start -k $PREFECT_API_KEY --api ${prefect_api_address} ${image_pulling} ${flow_logs} ${config_id}
 [Install]
 WantedBy=multi-user.target " >> /etc/systemd/system/prefect-agent.service
 
