@@ -21,6 +21,8 @@ repos:
 
   - # see https://github.com/antonbabenko/pre-commit-terraform
     repo: https://github.com/antonbabenko/pre-commit-terraform
+    # temporarily using commit sha
+    # https://github.com/antonbabenko/pre-commit-terraform/issues/337
     rev: 48bc03ca3f0f2f782d2f430069868019a6892062 # v1.64.0
     hooks:
       # see https://github.com/antonbabenko/pre-commit-terraform#terraform_fmt
