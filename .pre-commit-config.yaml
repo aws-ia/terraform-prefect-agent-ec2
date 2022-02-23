@@ -36,12 +36,6 @@ repos:
         args:
           - "--args=--config=.terraform-docs.yaml"
 
-      # - id: terraform_docs
-      #   name: Render documentation for `basic` example
-      #   files: examples/agent-configuration-options
-      #   args:
-      #     - "--args=--config=.terraform-docs.yml"
-
       # see https://github.com/antonbabenko/pre-commit-terraform#terraform_providers_lock
       - id: terraform_providers_lock
 
