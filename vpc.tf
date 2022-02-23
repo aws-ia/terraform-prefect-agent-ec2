@@ -35,8 +35,9 @@ module "vpc" {
 }
 
 module "vpc_endpoints" {
-  count  = var.deploy_network ? 1 : 0
-  source = "terraform-aws-modules/vpc/aws//modules/vpc-endpoints"
+  count   = var.deploy_network ? 1 : 0
+  source  = "terraform-aws-modules/vpc/aws//modules/vpc-endpoints"
+  version = "3.11.4"
 
   vpc_id     = var.deploy_network ? module.vpc[0].vpc_id : null
   subnet_ids = var.deploy_network ? module.vpc[0].private_subnets : null

@@ -6,7 +6,7 @@ minimum_pre_commit_version: "2.6.0"
 repos:
   -
     repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.1.0
     hooks:
       - id: check-added-large-files
       - id: check-case-conflict
@@ -21,7 +21,9 @@ repos:
 
   - # see https://github.com/antonbabenko/pre-commit-terraform
     repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.62.0
+    # temporarily using commit sha
+    # https://github.com/antonbabenko/pre-commit-terraform/issues/337
+    rev: 48bc03ca3f0f2f782d2f430069868019a6892062 # v1.64.0
     hooks:
       # see https://github.com/antonbabenko/pre-commit-terraform#terraform_fmt
       - id: terraform_fmt
@@ -34,13 +36,19 @@ repos:
         args:
           - "--args=--config=.terraform-docs.yaml"
 
+      # - id: terraform_docs
+      #   name: Render documentation for `basic` example
+      #   files: examples/agent-configuration-options
+      #   args:
+      #     - "--args=--config=.terraform-docs.yml"
+
       # see https://github.com/antonbabenko/pre-commit-terraform#terraform_providers_lock
       - id: terraform_providers_lock
 
       # see https://github.com/antonbabenko/pre-commit-terraform#terraform_tflint
-      # - id: terraform_tflint
-      #   args:
-      #     - "--args=--config=.tflint.hcl"
+      - id: terraform_tflint
+        args:
+          - "--args=--config=__GIT_WORKING_DIR__/.tflint.hcl"
 
       - id: terraform_tfsec
         args:
