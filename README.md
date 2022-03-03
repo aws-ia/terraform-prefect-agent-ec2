@@ -5,7 +5,7 @@ The [Prefect Agent](https://docs.prefect.io/orchestration/agents/overview.html) 
 
 This Terraform module deploys the infrastructure required to run the Prefect Docker agent on AWS EC2. By default, it deploys AWS VPC Networking resources, which are best practice for Prefect configuration. You can disable the default networking as show in the [bring your own network](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/bring-your-own-network) example.
 
-![architecture diagram](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/images/basic.png)
+![architecture diagram](./images/basic.png "architecture diagram")
 
 ## Prerequisites
 
@@ -22,7 +22,7 @@ Error: Secrets Manager Secret "prefect-api-key" not found
 ## Examples
 
 Review the `examples/` directory for several specific deployment patterns:
-* [Agent Configuration Options](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/agent-configuration-options) - Demonstrates common agent configuration options that can be passed to the module  
+* [Agent Configuration Options](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/agent-configuration-options) - Demonstrates common agent configuration options that can be passed to the module
 * [Additional IAM Permissions](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/additional-iam-permissions) - Uses the IAM role built within the module to add additional permissions to the Prefect Agent EC2 Instance
 * [Basic](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/basic) - Simple deployment of the module with **no** inputs provided
 * [Bring Your Own Network](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/bring-your-own-network) - Demonstrates using network resources that were built outside of the scope of this module
