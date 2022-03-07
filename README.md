@@ -10,7 +10,7 @@ This Terraform module deploys the infrastructure required to run the Prefect Doc
 ## Prerequisites
 
 1. Generate an [API service account key](https://docs.prefect.io/orchestration/concepts/api_keys.html#using-api-keys) for the agent
-2. Store the API key in AWS Secrets Manager in the console, or using the following CLI command.  The secret is created by this Terraform module intentionally, as Terraform would store the API key in plaintext within the state file.
+2. Store the API key in AWS Secrets Manager in the console, or using the following CLI command.  The secret is not created by this Terraform module intentionally, as Terraform would store the API key in plaintext within the state file.
 ```
 aws secretsmanager create-secret --name prefect-api-key --secret-string "{\"key\":\"API_KEY_HERE\"}"
 ```
