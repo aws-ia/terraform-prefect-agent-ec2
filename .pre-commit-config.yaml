@@ -1,49 +1,11 @@
 ---
-
-fail_fast: true
+fail_fast: false
 minimum_pre_commit_version: "2.6.0"
-
 repos:
   -
-    repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    repo: https://github.com/aws-ia/pre-commit-hooks
+    # To update run:
+    # pre-commit autoupdate --freeze
+    rev: c59c40d69081d5419122a8f40292f0bf34175a02  # frozen: v1.2
     hooks:
-      - id: check-added-large-files
-      - id: check-case-conflict
-      - id: check-merge-conflict
-      - id: check-executables-have-shebangs
-      - id: check-json
-      - id: check-merge-conflict
-      - id: check-symlinks
-      - id: check-vcs-permalinks
-      - id: check-xml
-      - id: check-yaml
-
-  - # see https://github.com/antonbabenko/pre-commit-terraform
-    repo: https://github.com/antonbabenko/pre-commit-terraform
-    # temporarily using commit sha
-    # https://github.com/antonbabenko/pre-commit-terraform/issues/337
-    rev: 48bc03ca3f0f2f782d2f430069868019a6892062 # v1.64.0
-    hooks:
-      # see https://github.com/antonbabenko/pre-commit-terraform#terraform_fmt
-      - id: terraform_fmt
-
-      # see https://github.com/antonbabenko/pre-commit-terraform#terraform_validate
-      - id: terraform_validate
-
-      # see https://github.com/antonbabenko/pre-commit-terraform#terraform_docs
-      - id: terraform_docs
-        args:
-          - "--args=--config=.terraform-docs.yaml"
-
-      # see https://github.com/antonbabenko/pre-commit-terraform#terraform_providers_lock
-      - id: terraform_providers_lock
-
-      # see https://github.com/antonbabenko/pre-commit-terraform#terraform_tflint
-      - id: terraform_tflint
-        args:
-          - "--args=--config=__GIT_WORKING_DIR__/.tflint.hcl"
-
-      - id: terraform_tfsec
-        args:
-          - "--args=--exclude-downloaded-modules --custom-check-dir=.tfsec"
+      - id: aws-ia-meta-hook
