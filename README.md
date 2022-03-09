@@ -98,7 +98,7 @@ Several agent configuration options are exposed through this module.  Please fin
 | <a name="input_min_capacity"></a> [min\_capacity](#input\_min\_capacity) | the minimum size of the auto scaling group | `number` | `1` | no |
 | <a name="input_prefect_api_address"></a> [prefect\_api\_address](#input\_prefect\_api\_address) | the api address that the prefect agent queries for pending flow runs | `string` | `"https://api.prefect.io"` | no |
 | <a name="input_prefect_api_key_secret_name"></a> [prefect\_api\_key\_secret\_name](#input\_prefect\_api\_key\_secret\_name) | id of aws secrets manager secret for prefect api key | `string` | `"prefect-api-key"` | no |
-| <a name="input_prefect_labels"></a> [prefect\_labels](#input\_prefect\_labels) | labels to apply to the prefect agent | `string` | `""` | no |
+| <a name="input_prefect_labels"></a> [prefect\_labels](#input\_prefect\_labels) | labels to apply to the prefect agent | `string` | `"[]"` | no |
 | <a name="input_prefect_secret_key"></a> [prefect\_secret\_key](#input\_prefect\_secret\_key) | key of aws secrets manager secret for prefect api key | `string` | `"key"` | no |
 | <a name="input_security_group_ids"></a> [security\_group\_ids](#input\_security\_group\_ids) | security group(s) to attach to the prefect launch template, if not provided, a default one will be created | `list(string)` | `null` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | ids of the subnets to assign to the autoscaling group | `list(string)` | `[]` | no |
