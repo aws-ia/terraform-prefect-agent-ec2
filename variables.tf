@@ -70,7 +70,7 @@ variable "prefect_api_address" {
 variable "prefect_labels" {
   type        = string
   description = "labels to apply to the prefect agent" # Use the following format: "['us-east-1']"
-  default     = ""
+  default     = "[]"
 }
 variable "agent_automation_config" {
   type        = string
