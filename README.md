@@ -5,7 +5,7 @@ The [Prefect Agent](https://docs.prefect.io/orchestration/agents/overview.html) 
 
 This Terraform module deploys the infrastructure required to run the Prefect Docker agent on AWS EC2. By default, it deploys AWS VPC Networking resources, which are best practice for Prefect configuration. You can disable the default networking as show in the [bring your own network](https://github.com/aws-ia/terraform-prefect-agent-ec2/tree/main/examples/bring-your-own-network) example.
 
-![architecture diagram](./images/basic.png "architecture diagram")
+![architecture diagram](https://github.com/aws-ia/terraform-prefect-agent-ec2/blob/bcdbb31cd7ffb55926ccd78c60e2f35c28fc3450/images/basic.png)
 
 ## Prerequisites
 
@@ -41,13 +41,13 @@ Several agent configuration options are exposed through this module.  Please fin
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.72.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.72.0, < 4.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.2.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.72.0, < 4.0.0 |
 
 ## Modules
 
